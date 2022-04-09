@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.0.0
   intl: ^0.17.0
+  badges: ^2.0.2
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:

@@ -78,7 +78,7 @@ class Produto {
       avaliacao: 4.5,
       imagemMarca:
           "https://www.r7.com/cupons/static/shop/32617/logo/cupom-de-desconto-nike.png",
-      tamanho: [42, 39, 38, 39, 38, 39, 38, 39, 38, 39, 38, 39, 38, 39, 38, 39, 38],
+      tamanho: [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
       descricao:
           "Lorem ipsum non potenti sapien interdum nullam vel, justo risus sagittis tincidunt tristique porta dictum tristique, litora proin ligula leo varius nec. dictum dui aliquam vitae litora fames dapibus condimentum etiam habitasse, etiam vulputate velit sem sapien ut eleifend faucibus felis, pretium aliquam facilisis augue diam duis leo sapien. commodo nulla libero nulla risus eros viverra potenti aliquet sagittis sodales consectetur hendrerit, quisque placerat vulputate malesuada amet at sodales et ultrices nibh et aptent, id varius mollis ut blandit ut metus at eu lacus gravida. curae enim quisque felis fames ligula, at semper libero curae morbi metus, eget scelerisque pretium venenatis.",
     ));
