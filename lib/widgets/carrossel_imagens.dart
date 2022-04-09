@@ -1,14 +1,11 @@
+import 'package:desafioflutter/model/produtos.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:intl/intl.dart';
 
-final List<String> imgList = [
-  'https://static.netshoes.com.br/produtos/tenis-asics-gel-dedicate-7-clay-masculino/26/2FV-8428-026/2FV-8428-026_zoom1.jpg?ts=1647537409&ims=544x',
-  'https://static.netshoes.com.br/produtos/chuteira-society-adidas-artilheira-v/08/3ZP-5281-008/3ZP-5281-008_zoom1.jpg?ts=1644408418&ims=544x',
-  'https://static.netshoes.com.br/produtos/tenis-asics-gel-backhand-masculino/08/2FV-8421-008/2FV-8421-008_zoom1.jpg?ts=1647537065&ims=544x',
-  'https://static.netshoes.com.br/produtos/tenis-infantil-adidas-runfalcon-20/18/3ZP-2116-118/3ZP-2116-118_zoom1.jpg?ts=1643210374&ims=544x',
-  'https://static.netshoes.com.br/produtos/tenis-nike-fly-by-mid-3-masculino/58/2IC-5654-158/2IC-5654-158_zoom1.jpg?ts=1644579514&ims=544x',
-  'https://static.netshoes.com.br/produtos/tenis-asics-gel-game-8-feminino/04/D18-7726-904/D18-7726-904_zoom1.jpg?ts=1648153901&ims=544x'
-];
+final List<Produto> produtos = Produto.getProduto();
+
+var currency = NumberFormat('###.0#', 'pt_BR');
 
 class CarrosselImagemWidget extends StatelessWidget {
   const CarrosselImagemWidget({Key? key}) : super(key: key);
@@ -16,7 +13,7 @@ class CarrosselImagemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      items: imgList
+      items: produtos
           .map(
             (item) => Container(
               child: ClipRRect(
@@ -24,7 +21,7 @@ class CarrosselImagemWidget extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     Image.network(
-                      item,
+                      item.imagem,
                       loadingBuilder: (BuildContext context, Widget child,
                           ImageChunkEvent? loadingProgress) {
                         if (loadingProgress == null) {
@@ -92,12 +89,12 @@ class CarrosselImagemWidget extends StatelessWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(3),
                                     child: Column(
-                                      children: const [
+                                      children: [
                                         SizedBox(
                                           width: double.maxFinite,
                                           child: Text(
-                                            'Produto',
-                                            style: TextStyle(
+                                            item.nome,
+                                            style: const TextStyle(
                                               color: Color(0xff333333),
                                               fontSize: 22,
                                               fontWeight: FontWeight.bold,
@@ -105,12 +102,13 @@ class CarrosselImagemWidget extends StatelessWidget {
                                           ),
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.only(top: 5),
+                                          padding:
+                                              const EdgeInsets.only(top: 5),
                                           child: SizedBox(
                                             width: double.maxFinite,
                                             child: Text(
-                                              'Produto',
-                                              style: TextStyle(
+                                              "R\$ ${currency.format(item.preco)}",
+                                              style: const TextStyle(
                                                 color: Color(0xff333333),
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold,
@@ -140,7 +138,7 @@ class CarrosselImagemWidget extends StatelessWidget {
           initialPage: 0,
           enableInfiniteScroll: true,
           reverse: false,
-          autoPlay: true,
+          autoPlay: false,
           autoPlayInterval: const Duration(seconds: 3),
           autoPlayAnimationDuration: const Duration(milliseconds: 800),
           autoPlayCurve: Curves.fastOutSlowIn,
