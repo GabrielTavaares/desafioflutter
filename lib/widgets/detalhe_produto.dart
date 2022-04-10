@@ -4,6 +4,18 @@ import 'package:flutter/material.dart';
 
 int tamanhoSelecionado = 0;
 
+const snackBar = SnackBar(
+  duration: Duration(milliseconds: 600),
+  content: Text(
+    'Produto adicionado ao carrinho!',
+    style: TextStyle(
+      fontFamily: "Texgyreadventor",
+      fontSize: 14,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+);
+
 class DetalheProdutoWidget extends StatefulWidget {
   final Produto produto;
   const DetalheProdutoWidget({Key? key, required this.produto})
@@ -232,6 +244,9 @@ class ProdutoAdicionado with ChangeNotifier {
 
       pedido.add(prod);
       adicionar();
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
       notifyListeners();
     } else {
       showDialog<String>(
