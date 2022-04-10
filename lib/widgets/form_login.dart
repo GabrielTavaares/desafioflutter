@@ -15,7 +15,7 @@ class FormLoginWidget extends StatelessWidget {
           ),
           Center(
             child: Text(
-              "Tênis Store",
+              "Jet Store",
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.w700,

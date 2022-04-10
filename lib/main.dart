@@ -156,31 +156,41 @@ class DetalheProduto extends StatelessWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: Badge(
-              toAnimate: true,
-              animationType: BadgeAnimationType.fade,
-              badgeContent: Consumer<ProdutoAdicionado>(
-                builder: (context, counter, child) => Text(
-                  '${counter.value}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Carrinho(),
+                  ),
+                );
+              },
+              child: Badge(
+                toAnimate: true,
+                animationType: BadgeAnimationType.fade,
+                badgeContent: Consumer<ProdutoAdicionado>(
+                  builder: (context, counter, child) => Text(
+                    '${counter.value}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              ),
-              position: const BadgePosition(end: 1, top: 1),
-              badgeColor: Colors.black,
-              child: IconButton(
-                icon: const Icon(Icons.shopping_bag_outlined),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const Carrinho(),
-                    ),
-                  );
-                },
+                position: const BadgePosition(end: 1, top: 1),
+                badgeColor: Colors.black,
+                child: IconButton(
+                  icon: const Icon(Icons.shopping_bag_outlined),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Carrinho(),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ),

@@ -87,16 +87,8 @@ class CarrosselImagemWidget extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                        // begin: Alignment.centerLeft,
-                                        // end: Alignment.centerRight,
-                                        colors: [
-                                          Color.fromARGB(255, 221, 221, 221),
-                                          Colors.transparent,
-                                          Colors.transparent,
-                                        ],
-                                      ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.5),
                                     ),
                                     child: Padding(
                                       padding: const EdgeInsets.all(3),
