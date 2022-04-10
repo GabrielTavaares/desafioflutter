@@ -38,6 +38,7 @@ dependencies:
   intl: ^0.17.0
   badges: ^2.0.2
   provider: ^6.0.2
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -61,7 +62,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/
+    - assets/images/
+    - assets/fonts/
+    - assets/icons/
+
 
   fonts:
     - family: Texgyreadventor

@@ -1,3 +1,4 @@
+import 'package:desafioflutter/entity/pedido_entity.dart';
 import 'package:desafioflutter/model/produtos.dart';
 import 'package:flutter/material.dart';
 
@@ -202,13 +203,71 @@ class _DetalheProdutoWidgetState extends State<DetalheProdutoWidget> {
 class ProdutoAdicionado with ChangeNotifier {
   int value = 0;
 
+  var pedido = List<PedidoEntity>.empty(growable: true);
+  var tamanho = 0;
+
   void adicionar() {
-    value += 1;
+    value = pedido.length;
+
     notifyListeners();
   }
 
   void zerar() {
     value = 0;
+    pedido = List<PedidoEntity>.empty(growable: true);
+    notifyListeners();
+  }
+
+  void tamanhoSelec() {
+    tamanho = tamanhoSelecionado;
+  }
+
+  void adicionarPedido(produto, context) {
+    if (tamanhoSelecionado > 0) {
+      var prod = PedidoEntity(
+        produto: produto,
+        quantidade: 1,
+        tamanho: tamanhoSelecionado,
+      );
+
+      pedido.add(prod);
+      adicionar();
+      notifyListeners();
+    } else {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Atenção'),
+          content: const Text(
+              'Para adicionar um produto ao carrinho, é necessário selecionar o tamanho desejado.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Entendi'),
+              child: const Text(
+                'Entendi',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  totalPedido() {
+    double total = 0;
+
+    for (var item in pedido) {
+      total += item.produto.preco * item.quantidade;
+    }
+    return total;
+  }
+
+  void removerProduto(PedidoEntity item) {
+    pedido.remove(item);
+
+    value = pedido.length;
+
     notifyListeners();
   }
 }

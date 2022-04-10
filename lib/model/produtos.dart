@@ -1,4 +1,5 @@
 class Produto {
+  int id;
   String nome;
   double preco;
   String imagem;
@@ -8,6 +9,7 @@ class Produto {
   String descricao;
 
   Produto({
+    required this.id,
     required this.nome,
     required this.preco,
     required this.imagem,
@@ -21,6 +23,7 @@ class Produto {
     var produtos = List<Produto>.empty(growable: true);
 
     produtos.add(Produto(
+      id: 1,
       nome: "Tênis Asics Gel-Dedicate 7",
       preco: 399.99,
       imagem:
@@ -34,6 +37,7 @@ class Produto {
     ));
 
     produtos.add(Produto(
+      id: 2,
       nome: "Chuteira Adidas Artilheira V",
       preco: 99.99,
       imagem:
@@ -46,6 +50,7 @@ class Produto {
     ));
 
     produtos.add(Produto(
+      id: 3,
       nome: "Tênis Asics Gel-Backhand",
       preco: 199.99,
       imagem:
@@ -59,6 +64,7 @@ class Produto {
     ));
 
     produtos.add(Produto(
+      id: 4,
       nome: "Tênis Adidas Runfalcon 2.0",
       preco: 199.99,
       imagem:
@@ -71,6 +77,7 @@ class Produto {
     ));
 
     produtos.add(Produto(
+      id: 5,
       nome: "Tênis Nike Fly By Mid 3",
       preco: 1199.99,
       imagem:
@@ -84,6 +91,7 @@ class Produto {
     ));
 
     produtos.add(Produto(
+      id: 6,
       nome: "Tênis Asics Gel-Game 8",
       preco: 199.99,
       imagem:

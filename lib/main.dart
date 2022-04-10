@@ -1,9 +1,11 @@
-// ignore_for_file: unnecessary_const
-
 import 'package:badges/badges.dart';
 import 'package:desafioflutter/model/produtos.dart';
+import 'package:desafioflutter/widgets/bottom_bar_carrinho.dart';
 import 'package:desafioflutter/widgets/bottom_bar_detalhe_produto.dart';
+import 'package:desafioflutter/widgets/carrinho.dart';
 import 'package:desafioflutter/widgets/detalhe_produto.dart';
+import 'package:desafioflutter/widgets/form_login.dart';
+import 'package:desafioflutter/widgets/lista_favoritos.dart';
 import 'package:flutter/material.dart';
 import 'package:desafioflutter/widgets/carrossel_imagens.dart';
 import 'package:desafioflutter/widgets/carrossel_marcas.dart';
@@ -39,8 +41,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static final List<Widget> _widgetOptions = <Widget>[
+    Column(
+      children: const [
+        CarrosselImagemWidget(),
+        CarrosselMarcasWidget(),
+        CarrosselEspecialVoceWidget(),
+        ListaMaisPopularesWidget(),
+      ],
+    ),
+    const Carrinho(),
+    const ListaFavoritosWidget(),
+    const FormLoginWidget(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,63 +80,62 @@ class Home extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10),
-            child: Column(
-              children: const [
-                CarrosselImagemWidget(),
-                CarrosselMarcasWidget(),
-                CarrosselEspecialVoceWidget(),
-                ListaMaisPopularesWidget(),
-              ],
-            ),
+            child: _widgetOptions.elementAt(_selectedIndex),
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        fixedColor: Colors.black,
-        type: BottomNavigationBarType.fixed, 
+        type: BottomNavigationBarType.fixed,
         items: [
           const BottomNavigationBarItem(
             icon: const Icon(Icons.home_rounded),
-            label: ('Favorites'),
-          ),
-          const BottomNavigationBarItem(
-            icon: const Icon(Icons.search_rounded),
-            label: ('Music'),
+            label: ('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Badge(
-              toAnimate: true,
-              animationType: BadgeAnimationType.fade,
-              badgeContent: Consumer<ProdutoAdicionado>(
-                builder: (context, counter, child) => Text(
-                  '${counter.value}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
+            icon: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Carrinho(),
+                  ),
+                );
+              },
+              child: Badge(
+                badgeContent: Consumer<ProdutoAdicionado>(
+                  builder: (context, counter, child) => Text(
+                    '${counter.value}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              ),
-              position: const BadgePosition(end: 1, top: 1),
-              badgeColor: Colors.black,
-              child: IconButton(
-                icon: const Icon(Icons.shopping_bag_outlined),
-                onPressed: () {},
+                position: const BadgePosition(end: 1, top: 1),
+                badgeColor: Colors.black,
+                child: const IconButton(
+                  icon: Icon(Icons.shopping_bag_outlined),
+                  onPressed: null,
+                ),
               ),
             ),
-            label: ('Places'),
+            label: ('Carrinho'),
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.favorite_border_outlined),
-            label: ('News'),
+            label: ('Favoritos'),
           ),
           const BottomNavigationBarItem(
             icon: const Icon(Icons.person_outline_rounded),
-            label: ('News'),
+            label: ('Perfil'),
           ),
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.black,
+        onTap: _onItemTapped,
       ),
     );
   }
@@ -144,7 +173,14 @@ class DetalheProduto extends StatelessWidget {
               badgeColor: Colors.black,
               child: IconButton(
                 icon: const Icon(Icons.shopping_bag_outlined),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Carrinho(),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -159,6 +195,28 @@ class DetalheProduto extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomBarDetalheProdutoWidget(produto: produto),
+    );
+  }
+}
+
+class Carrinho extends StatelessWidget {
+  const Carrinho({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        shadowColor: Colors.transparent,
+        backgroundColor: Theme.of(context).backgroundColor,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: const CarrinhoWidget(),
+      ),
+      bottomNavigationBar: const BottomBarCarrinhoWidget(),
     );
   }
 }

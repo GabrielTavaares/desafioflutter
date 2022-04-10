@@ -58,8 +58,8 @@ class BottomBarDetalheProdutoWidget extends StatelessWidget {
                           const Color.fromARGB(255, 0, 0, 0)),
                     ),
                     onPressed: () {
-                      var counter = context.read<ProdutoAdicionado>();
-                      counter.adicionar();
+                      var addProd = context.read<ProdutoAdicionado>();
+                      addProd.adicionarPedido(produto, context);
                     },
                     child: const Padding(
                       padding: EdgeInsets.all(15),
